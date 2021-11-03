@@ -1,0 +1,50 @@
+{% extends "app/index.html" %}
+
+{% block main %}
+<div class="fluid-container mt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10">
+            <form action="" id="post-form">
+                {% csrf_token %}
+                <div class="form-row row">
+                    <div class="col-md-12 col-lg-6">
+                        <textarea id="en2vi" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                    </div>
+                    <div class="col-md-12 col-lg-6">
+                        <textarea id='result' class="form-control" id="exampleFormControlTextarea1" rows="10" disabled></textarea>
+                    </div>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('change', '#en2vi',function(e){
+        document.getElementById('result').value = ''
+        $.ajax({
+            type:'POST',
+            url: '/translate/',
+            data:{
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                raw_english: $('#en2vi').val(),
+                action: 'post'
+            },
+            success:function(json) {
+                const answer = json.answer.join(',').replaceAll(',', ' ')
+                console.log(answer)
+                document.getElementById('result').value = answer
+            },
+            error : function(xhr,errmsg,err) {
+
+            }
+        });
+    })
+</script>
+<style>
+    .form-control {
+        font-size: 24px;
+    }
+</style>
+
+{% endblock %}
