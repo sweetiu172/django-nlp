@@ -31,7 +31,8 @@
                 action: 'post'
             },
             success:function(json) {
-                const answer = json.answer.join(',').replaceAll(',', ' ')
+                // const answer = json.answer.join(',').replaceAll(',', ' ')
+                const answer = json.answer;
                 console.log(answer)
                 document.getElementById('result').value = answer
             },
