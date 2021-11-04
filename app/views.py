@@ -39,10 +39,10 @@ def home(request):
 
 
 
-def view_results(request):
-    # Submit prediction and show all
-    # data = {"dataset": PredResults.objects.all()}
-    return render(request, "app/results.html", {})
+# def view_results(request):
+#     # Submit prediction and show all
+#     # data = {"dataset": PredResults.objects.all()}
+#     return render(request, "app/result.html", {})
 
 def machine_translation(request):
     if request.POST.get('action') == 'post':
