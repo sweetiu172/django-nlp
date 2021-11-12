@@ -15,7 +15,8 @@ from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 # Create your views here.
 
 
-from transformers import T5ForConditionalGeneration, T5Tokenizer
+# from transformers import T5ForConditionalGeneration, T5Tokenizer
+from transformers import MarianMTModel, MarianTokenizer
 import torch
 
 if torch.cuda.is_available():       
@@ -28,10 +29,18 @@ else:
     print('No GPU available, using the CPU instead.')
     device = torch.device("cpu")
 
-model = T5ForConditionalGeneration.from_pretrained("NlpHUST/t5-en-vi-small")
-tokenizer = T5Tokenizer.from_pretrained("NlpHUST/t5-en-vi-small")
-model.to(device)
+# model = T5ForConditionalGeneration.from_pretrained("NlpHUST/t5-en-vi-small")
+# tokenizer = T5Tokenizer.from_pretrained("NlpHUST/t5-en-vi-small")
+# model.to(device)
+# model.eval()
+
+from transformers import MarianMTModel, MarianTokenizer
+model_path = ""
+tokenizer = MarianTokenizer.from_pretrained(model_path)
+model = MarianMTModel.from_pretrained(model_path).to(device)
 model.eval()
+
+
 
 
 def home(request):
@@ -60,7 +69,6 @@ def machine_translation(request):
                 )
         answer = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         print("Answer:" + answer)
-        print(type(answer))
         return JsonResponse({'answer': answer})
 
 # def process_translate(input):
