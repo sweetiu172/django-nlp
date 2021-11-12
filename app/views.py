@@ -16,7 +16,7 @@ from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 
 
 # from transformers import T5ForConditionalGeneration, T5Tokenizer
-from transformers import MarianMTModel, MarianTokenizer
+# from transformers import MarianMTModel, MarianTokenizer
 import torch
 
 if torch.cuda.is_available():       
@@ -35,7 +35,7 @@ else:
 # model.eval()
 
 from transformers import MarianMTModel, MarianTokenizer
-model_path = ""
+model_path = "./opus-mt-en-vi-finetuned-en-to-vi/checkpoint-10000"
 tokenizer = MarianTokenizer.from_pretrained(model_path)
 model = MarianMTModel.from_pretrained(model_path).to(device)
 model.eval()

@@ -20,7 +20,7 @@
 </div>
 
 <script>
-    $(document).on('change', '#en2vi',function(e){
+    $(document).on('input', '#en2vi',function(e){
         document.getElementById('result').value = ''
         $.ajax({
             type:'POST',
